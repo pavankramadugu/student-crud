@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
 
+    /**
+     * User Repository.
+     */
     @Autowired
     private final UserRepository userRepository;
 
@@ -22,40 +22,48 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Method to fetch all the student details.
+     *
+     * @return List of all Students.
+     */
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
+    /**
+     * Method to fetch student details by id.
+     *
+     * @return List of all Students.
+     */
     public List<User> getByID(Integer id) {
         return userRepository.findAllById(Collections.singleton(id));
     }
 
+    /**
+     * Method to delete the student details.
+     *
+     * @return Http Status.
+     */
     public void deleteUser(Integer id) {
         userRepository.deleteById(id);
     }
 
+    /**
+     * Method to add new student details.
+     *
+     * @return Http Status.
+     */
     public void addUser(User user) {
         userRepository.save(user);
     }
 
-    public void updateFirstName(int id, String firstName) {
-        userRepository.updateFirstName(id, firstName);
-    }
-
-    public void updateLastName(int id, String lastName) {
-        userRepository.updateLastName(id, lastName);
-    }
-
-    public void updateEmailId(int id, String emailId) {
-        userRepository.updateEmailId(id, emailId);
-    }
-
-    public void updatePhone(int id, String phone) {
-        userRepository.updatePhone(id, phone);
-    }
-
+    /**
+     * Method to update the student details.
+     *
+     * @return Http Status.
+     */
     public void updateUser(User data) {
-        System.out.println(data.getEmailId());
         int id = data.getId();
         Optional<User> list = userRepository.findById(id);
         User user = list.get();
