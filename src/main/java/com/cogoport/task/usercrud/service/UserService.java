@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -48,5 +52,18 @@ public class UserService {
 
     public void updatePhone(int id, String phone) {
         userRepository.updatePhone(id, phone);
+    }
+
+    public void updateUser(User data) {
+        System.out.println(data.getEmailId());
+        int id = data.getId();
+        Optional<User> list = userRepository.findById(id);
+        User user = list.get();
+        user.setEmailId(data.getEmailId());
+        user.setFirstName(data.getFirstName());
+        user.setLastName(data.getLastName());
+        user.setPhone(data.getPhone());
+        user.setCollege(data.getCollege());
+        userRepository.save(user);
     }
 }

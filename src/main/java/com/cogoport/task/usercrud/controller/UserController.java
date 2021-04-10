@@ -8,7 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+@CrossOrigin(origins = {"*"}, allowedHeaders = {"*"})
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -58,7 +62,7 @@ public class UserController {
 
     @PutMapping("/updateEmailId")
     public HttpStatus updateEmailId(@RequestParam("id") Integer id,
-                                  @RequestParam("emailId") String emailId) {
+                                    @RequestParam("emailId") String emailId) {
         service.updateEmailId(id, emailId);
         return HttpStatus.ACCEPTED;
     }
@@ -67,6 +71,12 @@ public class UserController {
     public HttpStatus updatePhone(@RequestParam("id") Integer id,
                                   @RequestParam("phone") String phone) {
         service.updatePhone(id, phone);
+        return HttpStatus.ACCEPTED;
+    }
+
+    @PutMapping("/updateUser")
+    public HttpStatus updateUser(@RequestBody User data) {
+        service.updateUser(data);
         return HttpStatus.ACCEPTED;
     }
 }
